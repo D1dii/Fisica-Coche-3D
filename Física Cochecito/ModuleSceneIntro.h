@@ -43,7 +43,18 @@ public:
 	PhysMotor3D* right_wheel;
 
 	Cube recta1;
+	
 	Cube curva1;
+	Cube curva1_1;
+	Cube curva1_2;
+	Cube curva1_3;
+	Cube rampa;
+	Cube rectaAfterRamp;
+	Cube curva2;
+	Cube curva2_1;
+	Cube curva2_2;
+	Cube curva2_3;
+
 
 	PhysBody3D* recta;
 	PhysBody3D* curva;

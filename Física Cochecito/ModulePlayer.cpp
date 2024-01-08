@@ -141,6 +141,17 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
+	btTransform t = vehicle->body->getWorldTransform();
+	carPos = { t.getOrigin().x(), t.getOrigin().y(), t.getOrigin().z() };
+
+	if (carPos.x >= -30 && carPos.z >= 150 && carPos.z <= 180 && carPos.x <= 10)
+	{
+		friction = 0.0f;
+	}
+	else {
+		friction = 1.0f;
+	}
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -148,7 +159,7 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "%.1f Km/h X: %.1f Y: %.1f Z: %.1f", vehicle->GetKmh(), carPos.x, carPos.y, carPos.z);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
