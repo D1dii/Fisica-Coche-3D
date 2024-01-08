@@ -119,6 +119,10 @@ update_status ModulePlayer::Update(float dt)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
+	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_IDLE && vehicle->GetKmh() > 0) 
+	{
+		acceleration = -MAX_ACCELERATION * friction;
+	}
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{

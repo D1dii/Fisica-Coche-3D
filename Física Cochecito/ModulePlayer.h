@@ -25,4 +25,5 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+	float friction = 1.0f;
 };
