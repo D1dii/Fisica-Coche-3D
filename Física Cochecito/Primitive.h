@@ -2,6 +2,9 @@
 #pragma once
 #include "glmath.h"
 #include "Color.h"
+#include "PhysBody3D.h"
+
+
 
 enum PrimitiveTypes
 {
@@ -18,7 +21,7 @@ class Primitive
 public:
 
 	Primitive();
-
+	void Update(PhysBody3D* pbody);
 	virtual void	Render() const;
 	virtual void	InnerRender() const;
 	void			SetPos(float x, float y, float z);

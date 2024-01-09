@@ -237,7 +237,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-	recta1.Render();
+	/*recta1.Render();
 	curva1.Render();
 	curva1_1.Render();
 	curva1_2.Render();
@@ -269,7 +269,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	caminoLargo6.Render();
 	rectaFinal1.Render();
 	rampaFinal.Render();
-	rectaFinal2.Render();
+	rectaFinal2.Render();*/
 
 	return UPDATE_CONTINUE;
 }

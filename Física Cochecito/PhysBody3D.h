@@ -3,9 +3,10 @@
 
 #include "p2List.h"
 
+
 class btRigidBody;
 class Module;
-
+class Primitive;
 // =================================================
 struct PhysBody3D
 {
@@ -24,7 +25,8 @@ private:
 	
 
 public:
-	bool isSensor;
+	Primitive* primitive;
+	bool isSensor = false;
 	btRigidBody* body = nullptr;
 	p2List<Module*> collision_listeners;
 };

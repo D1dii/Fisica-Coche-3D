@@ -120,12 +120,16 @@ update_status ModulePhysics3D::Update(float dt)
 		world->debugDrawWorld();
 
 		// Render vehicles
-		p2List_item<PhysVehicle3D*>* item = vehicles.getFirst();
-		while(item)
+		p2List_item<PhysVehicle3D*>* vitem = vehicles.getFirst();
+		while(vitem)
 		{
-			item->data->Render();
-			item = item->next;
+			vitem->data->Render();
+			vitem = vitem->next;
 		}
+
+
+		
+
 
 		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
@@ -136,6 +140,21 @@ update_status ModulePhysics3D::Update(float dt)
 		}
 	}
 
+
+	p2List_item<PhysBody3D*>* item = bodies.getFirst();
+	while (item)
+	{
+		if (item->data->primitive)
+		{
+			if (!item->data->isSensor)
+			{
+				item->data->primitive->Update(item->data);
+				item->data->primitive->Render();
+
+			}
+			item = item->next;
+		}
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -192,7 +211,7 @@ bool ModulePhysics3D::CleanUp()
 }
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(Sphere& sphere, float mass)
 {
 	btCollisionShape* colShape = new btSphereShape(sphere.radius);
 	shapes.add(colShape);
@@ -213,6 +232,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
 
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
+	pbody->primitive = &sphere;
 	bodies.add(pbody);
 
 	return pbody;
@@ -220,7 +240,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
 
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass, btScalar friction)
+PhysBody3D* ModulePhysics3D::AddBody(Cube& cube, float mass, btScalar friction)
 {
 	btCollisionShape* colShape = new btBoxShape(btVector3(cube.size.x*0.5f, cube.size.y*0.5f, cube.size.z*0.5f));
 	shapes.add(colShape);
@@ -241,7 +261,8 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass, btScalar fric
 	PhysBody3D* pbody = new PhysBody3D(body);
 
 	body->setUserPointer(pbody);
-	//pbody->body->setUserPointer(pbody);
+	pbody->body->setUserPointer(pbody);
+	pbody->primitive = &cube;
 	world->addRigidBody(body);
 	bodies.add(pbody);
 
@@ -249,7 +270,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass, btScalar fric
 }
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(Cylinder& cylinder, float mass)
 {
 	btCollisionShape* colShape = new btCylinderShapeX(btVector3(cylinder.height*0.5f, cylinder.radius, 0.0f));
 	shapes.add(colShape);
@@ -271,6 +292,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
 
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
+	pbody->primitive = &cylinder;
 	bodies.add(pbody);
 
 	return pbody;

@@ -17,6 +17,11 @@ PrimitiveTypes Primitive::GetType() const
 	return type;
 }
 
+void Primitive::Update(PhysBody3D* pbody)
+{
+	pbody->GetTransform(&this->transform);
+}
+
 // ------------------------------------------------------------
 void Primitive::Render() const
 {
