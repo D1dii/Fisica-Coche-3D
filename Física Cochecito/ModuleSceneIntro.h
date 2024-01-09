@@ -63,6 +63,19 @@ public:
 	Cube Ice2;
 	Cube rectaPitote;
 	Cube bouncePad;
+	Cube rectaPitote2;
+	Cube rectaPitote3;
+	Cube rectaPitote4;
+	Cube rectaPitote5;
+	Cube caminoLargo1;
+	Cube caminoLargo2;
+	Cube caminoLargo3;
+	Cube caminoLargo4;
+	Cube caminoLargo5;
+	Cube caminoLargo6;
+	Cube rectaFinal1;
+	Cube rampaFinal;
+	Cube rectaFinal2;
 
 
 	PhysBody3D* recta;

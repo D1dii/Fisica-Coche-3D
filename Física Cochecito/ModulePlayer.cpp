@@ -22,14 +22,14 @@ bool ModulePlayer::Start()
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 1, 4);
-	car.chassis_offset.Set(0, 1.5, 0);
+	car.chassis_offset.Set(0, 1, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
 	car.suspensionCompression = 0.83f;
-	car.suspensionDamping = 0.88f;
+	car.suspensionDamping = 1.5f;
 	car.maxSuspensionTravelCm = 1000.0f;
 	car.frictionSlip = 50.5;
-	car.maxSuspensionForce = 6000.0f;
+	car.maxSuspensionForce = 3000.0f;
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
@@ -98,7 +98,7 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->collision_listeners.add(this);
-	vehicle->SetPos(0, 1, 20);
+	vehicle->SetPos(-72, 12, 0);
 	
 	return true;
 }
@@ -176,7 +176,7 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body2 == App->scene_intro->padSensor)
 	{
-		vehicle->Push(0, 500, 0);
+		vehicle->Push(0, 300, 0);
 	}
 }
 

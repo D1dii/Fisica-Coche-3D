@@ -112,37 +112,112 @@ bool ModuleSceneIntro::Start()
 	rectaBeforeIce.color = Yellow;
 	rectaBeforeIce.size = { 20, 1, 200 };
 	rectaBeforeIce.SetRotation(90, vec3(0, 1, 0));
-	rectaBeforeIce.SetPos(-300, 1, 648);
+	rectaBeforeIce.SetPos(-300, 0, 648);
 	App->physics->AddBody(rectaBeforeIce, 0, 0);
 
 	Ice1.color = BlueClaro;
 	Ice1.size = { 100, 1, 20 };
 	Ice1.SetRotation(30, vec3(0, 1, 0));
-	Ice1.SetPos(-162, 1, 625);
+	Ice1.SetPos(-162, 0, 625);
 	App->physics->AddBody(Ice1, 0, 0);
 
 	Ice2.color = BlueClaro;
 	Ice2.size = { 100, 1, 20 };
 	Ice2.SetRotation(60, vec3(0, 1, 0));
-	Ice2.SetPos(-97, 1, 560);
+	Ice2.SetPos(-97, 0, 560);
 	App->physics->AddBody(Ice2, 0, 0);
 
 	rectaPitote.color = Yellow;
 	rectaPitote.size = { 100, 1, 20 };
 	rectaPitote.SetRotation(90, vec3(0, 1, 0));
-	rectaPitote.SetPos(-72, 1, 472);
+	rectaPitote.SetPos(-72, 0, 472);
 	App->physics->AddBody(rectaPitote, 0, 0);
 
 	bouncePad.color = Red;
 	bouncePad.size = { 20, 1, 20 };
 	bouncePad.SetRotation(90, vec3(0, 1, 0));
-	bouncePad.SetPos(-72, 1, 412);
+	bouncePad.SetPos(-72, 0, 412);
 	App->physics->AddBody(bouncePad, 0, 0);
 
 	padSensor = App->physics->AddBody(Cube(20, 20, 20), 0);
 	padSensor->collision_listeners.add(this);
 	padSensor->SetPos(-72, 5, 412);
 	padSensor->SetAsSensor(true);
+
+	rectaPitote2.color = Yellow;
+	rectaPitote2.size = { 200, 1, 20 };
+	rectaPitote2.SetRotation(90, vec3(0, 1, 0));
+	rectaPitote2.SetPos(-72, 10, 250);
+	App->physics->AddBody(rectaPitote2, 0, 0);
+
+	rectaPitote3.color = Yellow;
+	rectaPitote3.size = { 200, 1, 20 };
+	rectaPitote3.SetRotation(90, vec3(0, 1, 0));
+	rectaPitote3.SetPos(-72, 10, 50);
+	App->physics->AddBody(rectaPitote3, 0, 0);
+
+	rectaPitote4.color = Yellow;
+	rectaPitote4.size = { 200, 1, 20 };
+	rectaPitote4.SetRotation(90, vec3(0, 1, 0));
+	rectaPitote4.SetPos(-72, 10, -150);
+	App->physics->AddBody(rectaPitote4, 0, 0);
+
+	rectaPitote5.color = Yellow;
+	rectaPitote5.size = { 140, 1, 20 };
+	rectaPitote5.SetRotation(90, vec3(0, 1, 0));
+	rectaPitote5.SetPos(-72, 10, -270);
+	App->physics->AddBody(rectaPitote5, 0, 0);
+
+	caminoLargo1.color = RedClaro;
+	caminoLargo1.size = { 20, 1, 100 };
+	caminoLargo1.SetRotation(30, vec3(0, 1, 0));
+	caminoLargo1.SetPos(-98, 10, 50);
+	App->physics->AddBody(caminoLargo1, 0, 0);
+
+	caminoLargo2.color = RedClaro;
+	caminoLargo2.size = { 20, 1, 100 };
+	caminoLargo2.SetRotation(15, vec3(0, 1, 0));
+	caminoLargo2.SetPos(-135, 10, -38);
+	App->physics->AddBody(caminoLargo2, 0, 0);
+
+	caminoLargo3.color = RedClaro;
+	caminoLargo3.size = { 20, 1, 100 };
+	caminoLargo3.SetPos(-148, 10, -133);
+	App->physics->AddBody(caminoLargo3, 0, 0);
+
+	caminoLargo4.color = RedClaro;
+	caminoLargo4.size = { 20, 1, 100 };
+	caminoLargo4.SetRotation(-15, vec3(0, 1, 0));
+	caminoLargo4.SetPos(-135, 10, -228);
+	App->physics->AddBody(caminoLargo4, 0, 0);
+
+	caminoLargo5.color = RedClaro;
+	caminoLargo5.size = { 20, 1, 100 };
+	caminoLargo5.SetRotation(-30, vec3(0, 1, 0));
+	caminoLargo5.SetPos(-98, 10, -318);
+	App->physics->AddBody(caminoLargo5, 0, 0);
+
+	caminoLargo6.color = RedClaro;
+	caminoLargo6.size = { 30, 1, 80 };
+	caminoLargo6.SetRotation(-90, vec3(0, 1, 0));
+	caminoLargo6.SetPos(-35, 10, -350);
+	App->physics->AddBody(caminoLargo6, 0, 0);
+
+	rectaFinal1.color = Yellow;
+	rectaFinal1.size = { 20, 1, 100 };
+	rectaFinal1.SetPos(0, 10, -315);
+	App->physics->AddBody(rectaFinal1, 0, 0);
+
+	rampaFinal.color = Yellow;
+	rampaFinal.size = { 20, 1, 50 };
+	rampaFinal.SetRotation(195, vec3(1, 0, 0));
+	rampaFinal.SetPos(0, 3, -242);
+	App->physics->AddBody(rampaFinal, 0, 0);
+
+	rectaFinal2.color = Yellow;
+	rectaFinal2.size = { 20, 1, 100 };
+	rectaFinal2.SetPos(0, 0, -200);
+	App->physics->AddBody(rectaFinal2, 0, 0);
 
 	return ret;
 }
@@ -182,6 +257,19 @@ update_status ModuleSceneIntro::Update(float dt)
 	Ice2.Render();
 	rectaPitote.Render();
 	bouncePad.Render();
+	rectaPitote2.Render();
+	rectaPitote3.Render();
+	rectaPitote4.Render();
+	rectaPitote5.Render();
+	caminoLargo1.Render();
+	caminoLargo2.Render();
+	caminoLargo3.Render();
+	caminoLargo4.Render();
+	caminoLargo5.Render();
+	caminoLargo6.Render();
+	rectaFinal1.Render();
+	rampaFinal.Render();
+	rectaFinal2.Render();
 
 	return UPDATE_CONTINUE;
 }
