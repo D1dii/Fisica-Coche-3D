@@ -54,8 +54,18 @@ public:
 	Cube curva2_1;
 	Cube curva2_2;
 	Cube curva2_3;
+	Cube curva3;
+	Cube curva3_1;
+	Cube curva3_2;
+	Cube curva3_3;
+	Cube rectaBeforeIce;
+	Cube Ice1;
+	Cube Ice2;
+	Cube rectaPitote;
+	Cube bouncePad;
 
 
 	PhysBody3D* recta;
 	PhysBody3D* curva;
+	PhysBody3D* padSensor;
 };

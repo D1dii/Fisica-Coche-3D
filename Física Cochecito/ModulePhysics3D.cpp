@@ -241,6 +241,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass, btScalar fric
 	PhysBody3D* pbody = new PhysBody3D(body);
 
 	body->setUserPointer(pbody);
+	//pbody->body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.add(pbody);
 
@@ -259,6 +260,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
 	btVector3 localInertia(0, 0, 0);
 	if(mass != 0.f)
 		colShape->calculateLocalInertia(mass, localInertia);
+	
 
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
 	motions.add(myMotionState);
@@ -328,6 +330,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	// ---------------------
 
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);
+	body->setUserPointer(pvehicle);
 	world->addVehicle(vehicle);
 	vehicles.add(pvehicle);
 
