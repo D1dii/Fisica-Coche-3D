@@ -20,6 +20,11 @@ bool ModulePlayer::Start()
 
 	VehicleInfo car;
 
+	//
+	savePos.x = 0;
+	savePos.y = 12;
+	savePos.z = 20;
+
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 1, 4);
 	car.chassis_offset.Set(0, 1, 0);
@@ -137,7 +142,12 @@ update_status ModulePlayer::Update(float dt)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		acceleration = -MAX_ACCELERATION;
+	}
+
+	if(App->input->GetKey(SDL_SCANCODE_Z) == KEY_REPEAT)
 	{
 		brake = BRAKE_POWER;
 	}
@@ -145,12 +155,13 @@ update_status ModulePlayer::Update(float dt)
 	btTransform t = vehicle->body->getWorldTransform();
 	carPos = { t.getOrigin().x(), t.getOrigin().y(), t.getOrigin().z() };
 
+	// Ice Zone definition
 	if (carPos.x >= -200 && carPos.z >= 500 && carPos.z <= 650 && carPos.x <= -70)
 	{
-		friction = 0.0f;
+		friction = 0.1f;
 	}
 	else {
-		friction = 1.0f;
+		friction = 0.75f;
 	}
 
 	vehicle->ApplyEngineForce(acceleration);
@@ -177,6 +188,17 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	if (body2 == App->scene_intro->padSensor)
 	{
 		vehicle->Push(0, 300, 0);
+	}
+	else if (body2 == App->scene_intro->deathField) 
+	{
+		vehicle->SetPos(savePos.x, savePos.y, savePos.z);
+		acceleration = 0;
+	}
+
+	if (body2 == App->scene_intro->checkPoint_1 || body2 == App->scene_intro->checkPoint_2 || body2 == App->scene_intro->checkPoint_3 || body2 == App->scene_intro->checkPointMeta)
+	{
+		savePos = carPos;
+		
 	}
 }
 

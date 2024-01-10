@@ -76,9 +76,16 @@ public:
 	Cube rectaFinal1;
 	Cube rampaFinal;
 	Cube rectaFinal2;
+	Cube deathZone;
 
 
 	PhysBody3D* recta;
 	PhysBody3D* curva;
 	PhysBody3D* padSensor;
+	PhysBody3D* deathField;
+	PhysBody3D* checkPoint_1;
+	PhysBody3D* checkPoint_2;
+	PhysBody3D* checkPoint_3;
+	PhysBody3D* checkPointMeta;
+
 };
