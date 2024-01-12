@@ -195,9 +195,31 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		acceleration = 0;
 	}
 
-	if (body2 == App->scene_intro->checkPoint_1 || body2 == App->scene_intro->checkPoint_2 || body2 == App->scene_intro->checkPoint_3 || body2 == App->scene_intro->checkPointMeta)
+	if (body2 == App->scene_intro->checkPoint_1)
 	{
 		savePos = carPos;
+		isCheck1 = true;
+	}
+
+	if (body2 == App->scene_intro->checkPoint_2)
+	{
+		savePos = carPos;
+		isCheck2 = true;
+	}
+
+	if (body2 == App->scene_intro->checkPoint_3)
+	{
+		savePos = carPos;
+		isCheck3 = true;
+	}
+
+	if (body2 == App->scene_intro->checkPointMeta)
+	{
+		savePos = carPos;
+		if (isCheck1 && isCheck2 && isCheck3)
+		{
+			App->scene_intro->recta1.color = Green;
+		}
 		
 	}
 }

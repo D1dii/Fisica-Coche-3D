@@ -29,4 +29,7 @@ public:
 	float acceleration;
 	float brake;
 	float friction = 1.0f;
+	bool isCheck1 = false;
+	bool isCheck2 = false;
+	bool isCheck3 = false;
 };
