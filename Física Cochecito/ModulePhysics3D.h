@@ -38,6 +38,9 @@ public:
 private:
 
 	bool debug;
+	bool isGravityActive = true;
+	float gravityDebug = -10;
+	float massDebug = 500;
 
 	btDefaultCollisionConfiguration*	collision_conf;
 	btCollisionDispatcher*				dispatcher;

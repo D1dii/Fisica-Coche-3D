@@ -34,4 +34,7 @@ public:
 	bool isCheck3 = false;
 	uint WinFx;
 	uint DeathFx;
+	uint CheckpointFx;
+	bool isFrictionActive = true;
+	bool debug = false;
 };

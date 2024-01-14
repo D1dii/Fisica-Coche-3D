@@ -219,6 +219,8 @@ bool ModuleSceneIntro::Start()
 	rectaFinal2.SetPos(0, 10, -200);
 	App->physics->AddBody(rectaFinal2, 0, 0);
 
+	
+
 	deathField = App->physics->AddBody(Cube(2000, 2, 2000), 0);
 	deathField->collision_listeners.add(this);
 	deathField->SetPos(0, 0, 0);
@@ -233,20 +235,90 @@ bool ModuleSceneIntro::Start()
 	checkPoint_1->SetPos(-105, 12, 235);
 	checkPoint_1->SetAsSensor(true);
 
+	checkPointCyl1_1.color = RedClaro;
+	checkPointCyl1_1.radius = 2.0f;
+	checkPointCyl1_1.height = 15.0f;
+	checkPointCyl1_1.SetPos(-105, 15, 245);
+	checkPointCyl1_1.SetRotation(90, vec3(0, 0, 1));
+	App->physics->AddBody(checkPointCyl1_1, 0);
+
+	checkPointCyl1_2.color = RedClaro;
+	checkPointCyl1_2.radius = 2.0f;
+	checkPointCyl1_2.height = 15.0f;
+	checkPointCyl1_2.SetPos(-105, 15, 225);
+	checkPointCyl1_2.SetRotation(90, vec3(0, 0, 1));
+	App->physics->AddBody(checkPointCyl1_2, 0);
+
 	checkPoint_2 = App->physics->AddBody(Cube(40, 10, 5), 0);
 	checkPoint_2->collision_listeners.add(this);
 	checkPoint_2->SetPos(-720, 40, 425);
 	checkPoint_2->SetAsSensor(true);
+
+	checkPointCyl2_1.color = RedClaro;
+	checkPointCyl2_1.radius = 2.0f;
+	checkPointCyl2_1.height = 15.0f;
+	checkPointCyl2_1.SetPos(-700, 42, 425);
+	checkPointCyl2_1.SetRotation(90, vec3(0, 0, 1));
+	App->physics->AddBody(checkPointCyl2_1, 0);
+
+	checkPointCyl2_2.color = RedClaro;
+	checkPointCyl2_2.radius = 2.0f;
+	checkPointCyl2_2.height = 15.0f;
+	checkPointCyl2_2.SetPos(-740, 42, 425);
+	checkPointCyl2_2.SetRotation(90, vec3(0, 0, 1));
+	App->physics->AddBody(checkPointCyl2_2, 0);
 
 	checkPoint_3 = App->physics->AddBody(Cube(25, 10, 5), 0);
 	checkPoint_3->collision_listeners.add(this);
 	checkPoint_3->SetPos(-72, 25, 250);
 	checkPoint_3->SetAsSensor(true);
 
+	checkPointCyl3_1.color = RedClaro;
+	checkPointCyl3_1.radius = 2.0f;
+	checkPointCyl3_1.height = 15.0f;
+	checkPointCyl3_1.SetPos(-82, 28, 250);
+	checkPointCyl3_1.SetRotation(90, vec3(0, 0, 1));
+	App->physics->AddBody(checkPointCyl3_1, 0);
+
+	checkPointCyl3_2.color = RedClaro;
+	checkPointCyl3_2.radius = 2.0f;
+	checkPointCyl3_2.height = 15.0f;
+	checkPointCyl3_2.SetPos(-62, 28, 250);
+	checkPointCyl3_2.SetRotation(90, vec3(0, 0, 1));
+	App->physics->AddBody(checkPointCyl3_2, 0);
+
 	checkPointMeta = App->physics->AddBody(Cube(20, 10, 5), 0);
 	checkPointMeta->collision_listeners.add(this);
 	checkPointMeta->SetPos(0, 15, 20);
 	checkPointMeta->SetAsSensor(true);
+
+	Meta1.color = RedClaro;
+	Meta1.radius = 2.0f;
+	Meta1.height = 15.0f;
+	Meta1.SetPos(-10, 15, 20);
+	Meta1.SetRotation(90, vec3(0, 0, 1));
+	App->physics->AddBody(Meta1, 0);
+
+	Meta2.color = RedClaro;
+	Meta2.radius = 2.0f;
+	Meta2.height = 15.0f;
+	Meta2.SetPos(10, 15, 20);
+	Meta2.SetRotation(90, vec3(0, 0, 1));
+	App->physics->AddBody(Meta2, 0);
+
+	BasePitote.color = White;
+	BasePitote.radius = 7.5f;
+	BasePitote.height = 50.0f;
+	BasePitote.SetPos(-100, 30, -100);
+	BasePitote.SetRotation(90, vec3(0, 0, 1));
+	BaseGirar = App->physics->AddBody(BasePitote, 0);
+
+	Pitote.color = Green;
+	Pitote.size = { 40, 5, 5 };
+	Pitote.SetPos(-80, 24, -100);
+	pitoteGirar = App->physics->AddBody(Pitote, 800);
+
+	App->physics->AddConstraintHinge((*BaseGirar), (*pitoteGirar), vec3(0, 0, 0), vec3(-20, 6, 0), vec3(1, 0, 0), vec3(0, 1, 0), true);
 
 	App->audio->PlayMusic("Assets/Audio/Music/MarioKart.wav");
 
@@ -267,6 +339,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+
+	
 
 	deathZone.Render();
 

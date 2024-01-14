@@ -78,6 +78,18 @@ public:
 	Cube rectaFinal2;
 	Cube deathZone;
 
+	Cylinder BasePitote;
+	Cube Pitote;
+
+	Cylinder checkPointCyl1_1;
+	Cylinder checkPointCyl1_2;
+	Cylinder checkPointCyl2_1;
+	Cylinder checkPointCyl2_2;
+	Cylinder checkPointCyl3_1;
+	Cylinder checkPointCyl3_2;
+	Cylinder Meta1;
+	Cylinder Meta2;
+
 
 	PhysBody3D* recta;
 	PhysBody3D* curva;
@@ -87,5 +99,7 @@ public:
 	PhysBody3D* checkPoint_2;
 	PhysBody3D* checkPoint_3;
 	PhysBody3D* checkPointMeta;
+	PhysBody3D* BaseGirar;
+	PhysBody3D* pitoteGirar;
 
 };

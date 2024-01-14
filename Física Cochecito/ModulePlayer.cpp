@@ -107,6 +107,7 @@ bool ModulePlayer::Start()
 
 	WinFx = App->audio->LoadFx("Assets/Audio/FX/WinFx.ogg");
 	DeathFx = App->audio->LoadFx("Assets/Audio/FX/DeathFx.ogg");
+	CheckpointFx = App->audio->LoadFx("Assets/Audio/FX/CheckpointFx.ogg");
 	
 	return true;
 }
@@ -122,6 +123,21 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		debug = !debug;
+	}
+
+	if (debug)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		{
+			isFrictionActive = !isFrictionActive;
+			friction = 0;
+		}
+	}
+	
+
 	turn = acceleration = brake = 0.0f;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -159,19 +175,27 @@ update_status ModulePlayer::Update(float dt)
 	carPos = { t.getOrigin().x(), t.getOrigin().y(), t.getOrigin().z() };
 
 	// Ice Zone definition
-	if (carPos.x >= -200 && carPos.z >= 500 && carPos.z <= 650 && carPos.x <= -70)
+	if (isFrictionActive)
 	{
-		friction = 0.1f;
+		if (carPos.x >= -200 && carPos.z >= 500 && carPos.z <= 650 && carPos.x <= -70)
+		{
+			friction = 0.1f;
+		}
+		else {
+			friction = 0.75f;
+		}
 	}
-	else {
-		friction = 0.75f;
-	}
+
+	
+	
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
 
 	vehicle->Render();
+
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
@@ -204,18 +228,27 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{
 		savePos = carPos;
 		isCheck1 = true;
+		App->scene_intro->checkPointCyl1_1.color = Green;
+		App->scene_intro->checkPointCyl1_2.color = Green;
+		App->audio->PlayFx(CheckpointFx);
 	}
 
 	if (body2 == App->scene_intro->checkPoint_2)
 	{
 		savePos = carPos;
 		isCheck2 = true;
+		App->scene_intro->checkPointCyl2_1.color = Green;
+		App->scene_intro->checkPointCyl2_2.color = Green;
+		App->audio->PlayFx(CheckpointFx);
 	}
 
 	if (body2 == App->scene_intro->checkPoint_3)
 	{
 		savePos = carPos;
 		isCheck3 = true;
+		App->scene_intro->checkPointCyl3_1.color = Green;
+		App->scene_intro->checkPointCyl3_2.color = Green;
+		App->audio->PlayFx(CheckpointFx);
 	}
 
 	if (body2 == App->scene_intro->checkPointMeta)
@@ -223,8 +256,11 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		savePos = carPos;
 		if (isCheck1 && isCheck2 && isCheck3)
 		{
-			App->scene_intro->recta1.color = Green;
+		
 			App->audio->PlayFx(WinFx);
+			App->scene_intro->Meta1.color = Green;
+			App->scene_intro->Meta2.color = Green;
+			
 		}
 		
 	}

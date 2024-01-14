@@ -17,7 +17,7 @@
 
 ModulePhysics3D::ModulePhysics3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	debug = true;
+	debug = false;
 
 	collision_conf = new btDefaultCollisionConfiguration();
 	dispatcher = new btCollisionDispatcher(collision_conf);
@@ -127,17 +127,33 @@ update_status ModulePhysics3D::Update(float dt)
 			vitem = vitem->next;
 		}
 
-
-		
-
-
-		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 		{
-			Sphere s(1);
-			s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-			float force = 30.0f;
-			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
+			if (isGravityActive)
+			{
+				world->setGravity(btVector3(0, 0, 0));
+				isGravityActive = false;
+			}
+			else if (!isGravityActive)
+			{
+				world->setGravity(GRAVITY);
+				isGravityActive = true;
+			}
+			
 		}
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			gravityDebug--;
+			world->setGravity(btVector3(0, gravityDebug, 0));
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			gravityDebug++;
+			world->setGravity(btVector3(0, gravityDebug, 0));
+		}
+
 	}
 
 
@@ -150,7 +166,6 @@ update_status ModulePhysics3D::Update(float dt)
 			{
 				item->data->primitive->Update(item->data);
 				item->data->primitive->Render();
-
 			}
 			item = item->next;
 		}
@@ -382,9 +397,11 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 		btVector3(axisA.x, axisA.y, axisA.z), 
 		btVector3(axisB.x, axisB.y, axisB.z));
 
+	hinge->enableAngularMotor(true, 1200, 1200);
 	world->addConstraint(hinge, disable_collision);
 	constraints.add(hinge);
 	hinge->setDbgDrawSize(2.0f);
+
 }
 
 // =============================================
