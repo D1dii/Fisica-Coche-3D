@@ -104,6 +104,9 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->collision_listeners.add(this);
 	vehicle->SetPos(0, 12, 20);
+
+	WinFx = App->audio->LoadFx("Assets/Audio/FX/WinFx.ogg");
+	DeathFx = App->audio->LoadFx("Assets/Audio/FX/DeathFx.ogg");
 	
 	return true;
 }
@@ -187,12 +190,14 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body2 == App->scene_intro->padSensor)
 	{
-		vehicle->Push(0, 300, 0);
+		vehicle->Push(0, 150, 0);
 	}
 	else if (body2 == App->scene_intro->deathField) 
 	{
+		App->audio->PlayFx(DeathFx);
 		vehicle->SetPos(savePos.x, savePos.y, savePos.z);
 		acceleration = 0;
+		
 	}
 
 	if (body2 == App->scene_intro->checkPoint_1)
@@ -219,6 +224,7 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		if (isCheck1 && isCheck2 && isCheck3)
 		{
 			App->scene_intro->recta1.color = Green;
+			App->audio->PlayFx(WinFx);
 		}
 		
 	}

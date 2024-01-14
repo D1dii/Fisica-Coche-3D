@@ -32,4 +32,6 @@ public:
 	bool isCheck1 = false;
 	bool isCheck2 = false;
 	bool isCheck3 = false;
+	uint WinFx;
+	uint DeathFx;
 };

@@ -248,6 +248,8 @@ bool ModuleSceneIntro::Start()
 	checkPointMeta->SetPos(0, 15, 20);
 	checkPointMeta->SetAsSensor(true);
 
+	App->audio->PlayMusic("Assets/Audio/Music/MarioKart.wav");
+
 	return ret;
 }
 
